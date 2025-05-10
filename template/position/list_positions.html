@@ -1,0 +1,73 @@
+{% extends 'layout/base_nav.html' %}
+{% load static %}
+{% block title %}Directorio de Empleados{% endblock %}
+{% block extra_css %}
+<link href="{% static 'css/tablestyle.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+
+<!-- Contenido principal -->
+<div class="container">
+    <header class="page-header">
+        <h1 class="display-5 fw-bold text-primary">
+            <i class="fas fa-user-md me-2"></i>Directorio de cargos
+        </h1>
+        <p class="lead text-muted">Listado de cargos</p>
+    </header>
+    <form action="" style="max-width: 450px;">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Buscar..." name="search"
+                value="{{ request.GET.search }}">
+            <button class="btn btn-outline-success" data-bs-toggle="tooltip"
+                data-bs-title="Escriba parte del cargo y click en buscar">
+                Buscar
+            </button>
+        </div>
+    </form>
+    <!-- Botón para nuevo registro -->
+    <div class="d-flex justify-content-end mb-4">
+        <a class="btn btn-success" href="{% url 'payroll:create_position' %}">
+            <i class="fas fa-plus me-2"></i>Nuevo Cargo
+        </a>
+    </div>
+    <!-- Tabla de cargos -->
+
+    <div class="card mb-4">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in registers %}
+                        <tr>
+                            <th scope="row">{{item.id}}</th>
+                            <td>{{item.description}}</td>
+                            
+                            <td class="text-center">
+                                <a href="{% url 'payroll:update_position' item.id %}" class="btn btn-sm btn-primary me-1">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <a href="{% url 'payroll:delete_position' item.id %}" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginación -->
+    {% include 'layout/paginator.html' %}
+    
+</div>
+{% endblock %}

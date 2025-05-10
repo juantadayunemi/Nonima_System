@@ -43,7 +43,7 @@ def sign_out(request):
     logout(request)
     return redirect('sign_in')
       
-@login_required(login_url='sign_in')
+
 def home(request):
     return render(request,'home.html')
 
