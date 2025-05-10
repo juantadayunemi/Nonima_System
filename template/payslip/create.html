@@ -9,53 +9,44 @@
         background-color: #f8f9fa;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
     .navbar {
         background: linear-gradient(135deg, #0d6efd, #0dcaf0);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-
     .card {
         border-radius: 10px;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         transition: transform 0.3s, box-shadow 0.3s;
     }
-
     .card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     }
-
     .btn-primary {
         background: linear-gradient(135deg, #0d6efd, #0b5ed7);
         border: none;
         box-shadow: 0 4px 8px rgba(13, 110, 253, 0.25);
         transition: all 0.3s;
     }
-
     .btn-primary:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 12px rgba(13, 110, 253, 0.4);
     }
-
     .btn-secondary {
         background: linear-gradient(135deg, #6c757d, #5c636a);
         border: none;
         box-shadow: 0 4px 8px rgba(108, 117, 125, 0.25);
         transition: all 0.3s;
     }
-
     .btn-secondary:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 12px rgba(108, 117, 125, 0.4);
     }
-
     .page-header {
         position: relative;
         margin-bottom: 30px;
         padding-bottom: 15px;
     }
-
     .page-header:after {
         content: '';
         position: absolute;
@@ -65,34 +56,27 @@
         height: 3px;
         background: linear-gradient(135deg, #0d6efd, #0dcaf0);
     }
-
-    .form-control,
-    .form-select {
+    .form-control, .form-select {
         border-radius: 8px;
         padding: 12px 15px;
         border: 1px solid #ced4da;
         transition: all 0.3s;
     }
-
-    .form-control:focus,
-    .form-select:focus {
+    .form-control:focus, .form-select:focus {
         box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
         border-color: #86b7fe;
     }
-
     .form-label {
         font-weight: 500;
         margin-bottom: 0.5rem;
         color: #495057;
     }
-
     .input-group-text {
         background: linear-gradient(135deg, #f8f9fa, #e9ecef);
         border-radius: 8px 0 0 8px;
         border: 1px solid #ced4da;
         border-right: none;
     }
-
     .input-icon {
         position: absolute;
         right: 15px;
@@ -110,15 +94,14 @@
         <h1 class="display-5 fw-bold text-primary">
             <i class="fas fa-user-md me-2"></i>{{ title }}
         </h1>
-        <p class="lead text-muted">Registrar empleado</p>
+        <p class="lead text-muted">{{title}}</p>
     </header>
-
     <div class="row">
         <div class="col-md-8 mx-auto">
             <div class="card mb-4">
                 <div class="card-body p-4">
                     {% if error|length > 0 %}
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger " role="alert" style="background-color: #f8d7da;color: #721c24;">
                         {{error}}
                     </div>
                     {% endif %}
@@ -126,67 +109,36 @@
                         {% csrf_token %}
                         <div class="mb-4">
                             <label for="{{ form.name.id_for_label }}" class="form-label">
-                                <i class="fas fa-user text-primary me-2"></i>{{ form.name.label }}
+                                <i class="fas fa-user text-primary me-2"></i>{{ form.employee.label }}
                             </label>
-                            {{ form.name }}
-                            <div class="form-text text-muted" id="addressHelp">
-                                Ingrese nombre
-                            </div>
-                            {% if form.name.errors %}
-                            <div class="text-danger mt-1">
-                                {{ form.name.errors }}
-                            </div>
-                            {% endif %}
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="{{ form.dni.id_for_label }}" class="form-label">
-                                <i class="fas fa-id-card text-primary me-2"></i>{{ form.dni.label }}
-                            </label>
-                            {{ form.dni }}
+                            {{ form.employee }}
                             <div class="form-text text-muted" id="honorariosHelp">
-                                Formato de cédula: 0999999999
+                                Seleccione empleado
                             </div>
-                            {% if form.dni.errors %}
-                            <div class="text-danger mt-1">
-                                {{ form.dni.errors }}
-                            </div>
+                            {% if form.employee.errors %}
+                                <div class="text-danger mt-1">
+                                    {{ form.employee.errors }}
+                                </div>
                             {% endif %}
                         </div>
-
+                        
+                        <!-- Especialidad -->
                         <div class="mb-4">
-                            <label for="{{ form.address.id_for_label }}" class="form-label">
-                                <i class="fas fa-map-marker-alt text-primary me-2"></i>{{ form.address.label }}
-                            </label>             
-                                {{ form.address }}
-                            <div class="form-text text-muted" id="honorariosHelp">
-                                Ingrese dirección
-                            </div>
-                            {% if form.address.errors %}
-                            <div class="text-danger mt-1">
-                                {{ form.address.errors }}
-                            </div>
-                            {% endif %}
-                        </div>
-
-                        <!-- Sexo -->
-                        <div class="mb-4">
-                            <label for="{{ form.sex.id_for_label }}" class="form-label">
-                                <i class="fas fa-venus-mars text-primary me-2"></i>{{ form.sex.label }}
+                            <label for="{{ form.year_month.id_for_label }}" class="form-label">
+                                <i class="fas fa-calendar-alt text-primary me-2"></i>{{ form.year_month.label }}
                             </label>
-                            {{ form.sex }}
-                            <div class="form-text text-muted" id="addressHelp">
-                                Seleccione el género
+                            {{ form.year_month }}
+                            <div class="form-text text-muted" id="honorariosHelp">
+                                Seleccione fecha
                             </div>
-                            
-                            {% if form.sex.errors %}
-                            <div class="text-danger mt-1">
-                                {{ form.sex.errors }}
-                            </div>
+                            {% if form.year_month.errors %}
+                                <div class="text-danger mt-1">
+                                    {{ form.year_month.errors }}
+                                </div>
                             {% endif %}
                         </div>
-
-                        <!-- Email -->
+                        
+                        <!-- Honorarios -->
                         <div class="mb-4">
                             <label for="{{ form.salary.id_for_label }}" class="form-label">
                                 <i class="fas fa-money-bill-wave text-primary me-2"></i>{{ form.salary.label }}
@@ -205,53 +157,45 @@
                             {% endif %}
                         </div>
 
-                        <!-- Dirección -->
                         <div class="mb-4">
-                            <label for="{{ form.position.id_for_label }}" class="form-label">
-                                <i class="fas fa-user-tie text-primary me-2"></i>{{ form.position.label }}
+                            <label for="{{ form.overtime_hours.id_for_label }}" class="form-label">
+                                <i class="fas fa-money-bill-wave text-primary me-2"></i>{{ form.overtime_hours.label }}
                             </label>
-                            {{ form.position }}
-                            <div class="form-text text-muted" id="addressHelp">
-                                Cargo o posición laboral
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                {{ form.overtime_hours }}
                             </div>
-                            {% if form.position.errors %}
+                            <div class="form-text text-muted" id="emailHelp">
+                                Ingrese el monto sin el signo de dólar. Ejemplo: 120.00
+                            </div>
+                            {% if form.overtime_hours.errors %}
                             <div class="text-danger mt-1">
-                                {{ form.position.errors }}
+                                {{ form.overtime_hours.errors }}
                             </div>
                             {% endif %}
                         </div>
 
                         <div class="mb-4">
-                            <label for="{{ form.department.id_for_label }}" class="form-label">
-                                <i class="fas fa-building text-primary me-2"></i>{{ form.department.label }}
+                            <label for="{{ form.bonus.id_for_label }}" class="form-label">
+                                <i class="fas fa-money-bill-wave text-primary me-2"></i>{{ form.bonus.label }}
                             </label>
-                            {{ form.department }}
-                            <div class="form-text text-muted" id="addressHelp">
-                                Departamento o área de trabajo
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                {{ form.bonus }}
                             </div>
-                            {% if form.department.errors %}
+                            <div class="form-text text-muted" id="emailHelp">
+                                Ingrese el monto sin el signo de dólar. Ejemplo: 120.00
+                            </div>
+                            {% if form.bonus.errors %}
                             <div class="text-danger mt-1">
-                                {{ form.department.errors }}
+                                {{ form.bonus.errors }}
                             </div>
                             {% endif %}
                         </div>
-                        <div class="mb-4">
-                            <label for="{{ form.contract_type.id_for_label }}" class="form-label">
-                                <i class="fas fa-file-signature text-primary me-2"></i>{{ form.contract_type.label }}
-                            </label>
-                            {{ form.contract_type }}
-                            <div class="form-text text-muted" id="addressHelp">
-                                Tipo de contrato laboral
-                            </div>
-                            {% if form.contract_type.errors %}
-                            <div class="text-danger mt-1">
-                                {{ form.contract_type.errors }}
-                            </div>
-                            {% endif %}
-                        </div>
-
+                        
+                        
                         <div class="d-flex justify-content-between mt-4 pt-2">
-                            <a href="{% url 'payroll:list_employees' %}" class="btn btn-secondary">
+                            <a href="{% url 'payroll:list_payslip' %}" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left me-2"></i>Cancelar
                             </a>
                             <button type="submit" class="btn btn-primary">
@@ -267,11 +211,10 @@
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'payroll:home' %}" class="text-decoration-none">Inicio</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'payroll:list_employees' %}"
-                    class="text-decoration-none">Empleados</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Nuevo Empleado</li>
+            <li class="breadcrumb-item"><a href="{% url 'payroll:list_payslip' %}" class="text-decoration-none">Roles</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nuevo Rol</li>
         </ol>
     </nav>
 </div>
-
+      
 {% endblock %}

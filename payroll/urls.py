@@ -1,6 +1,6 @@
 from django.urls import path
 
-from payroll.views import views,employees
+from payroll.views import views,employees,payslip
 
 
 app_name='payroll'
@@ -11,4 +11,8 @@ urlpatterns = [
     path('create/employee/',employees.create_employee,name='create_employee'),
     path('update/employee/<int:id>/',employees.update_employee,name='update_employee'),
     path('delete/employee/<int:id>',employees.delete_employee,name='delete_employee'),
+    path('list/payslips/',payslip.list_payslip,name='list_payslip'),
+    path('create/payslip/',payslip.create_payslip,name='create_payslip'),
+    path('update/payslip/<int:id>/',payslip.update_payslip,name='update_payslip'),
+    path('delete/payslip/<int:id>',payslip.delete_payslip,name='delete_payslip'),
 ]

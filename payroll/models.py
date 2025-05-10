@@ -1,4 +1,5 @@
 from django.db import models
+from decimal import Decimal
 
 # Create your models here.
 class Position(models.Model):
@@ -49,10 +50,28 @@ class Payslip(models.Model):
     salary = models.DecimalField(max_digits=10, decimal_places=2)
     overtime_hours = models.DecimalField(max_digits=10, decimal_places=2)
     bonus = models.DecimalField(max_digits=10, decimal_places=2)
+    #calculado
     iess = models.DecimalField(max_digits=10, decimal_places=2)
     tot_ing = models.DecimalField(max_digits=10, decimal_places=2)
     tot_des = models.DecimalField(max_digits=10, decimal_places=2)
     neto = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return self.employee
+        return self.employee.name
+
+    def calculate_tot_ing(self):
+        self.tot_ing=self.salary+self.overtime_hours+self.bonus
+
+    def calculate_iess(self):
+        self.iess=self.salary*Decimal('0.0945')
+
+    def calculate_neto(self):
+        self.neto=self.tot_ing-self.tot_des
+
+    def save(self,*args,**kgars):
+        self.calculate_tot_ing()
+        self.calculate_iess()
+        self.tot_des=self.iess
+        self.calculate_neto()
+
+        super().save(*args,**kgars) #guardar en la base de datos con los campos calculados
