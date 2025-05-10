@@ -1,0 +1,8 @@
+# Ignorar todos los archivos .pyc en cualquier subcarpeta
+*.pyc
+
+# Ignorar todas las carpetas __pycache__
+__pycache__/
+
+# Ignorar el entorno virtual si es que lo tienes
+venv/
