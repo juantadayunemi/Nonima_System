@@ -1,7 +1,7 @@
 
 
 from django import forms
-from payroll.models import ContractType, Department, Employee, Position
+from payroll.models import Employee
 
 
 class EmployeeForm(forms.ModelForm):

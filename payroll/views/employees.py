@@ -1,39 +1,27 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
-
 from payroll.forms.employees import EmployeeForm
 from payroll.models import Employee
 from django.db.models import Q
+from payroll.views.views import paginator
 # Create your views here.
-
-
-def paginator(request,objects):
-    paginator=Paginator(objects,3)
-    page_number=request.GET.get('page')
-    registers=paginator.get_page(page_number)
-    current_page = registers.number
-    total_pages = paginator.num_pages
-
-    pages_range = []
-    for i in range(1, total_pages + 1):
-        if abs(i - current_page) <= 2 or i == 1 or i == total_pages:
-            pages_range.append(i)
-
-    return {'registers': registers,'pages_range':pages_range,'current_page':current_page}
 
 
 @login_required(login_url='sign_in')
 def list_employee(request):
-    query=request.GET.get('search',None)
-    if query: 
-        list_employees=Employee.objects.filter(Q(name__icontains=query) | Q(dni__icontains=query) | Q(address__icontains=query) | Q(sex__icontains=query) | Q(salary__icontains=query))
-    else: 
-        list_employees=Employee.objects.all()
+    try:
+        query=request.GET.get('search',None)
+        if query: 
+            list_employees=Employee.objects.filter(Q(name__icontains=query) | Q(dni__icontains=query) | Q(address__icontains=query) | Q(sex__icontains=query) | Q(salary__icontains=query) | Q(position__description__icontains=query) | Q(department__description__icontains=query) |Q(contract_type__description__icontains=query))
+        else: 
+            list_employees=Employee.objects.all()
 
-    context=paginator(request,list_employees)
+        context=paginator(request,list_employees)
 
-    return render(request,'employee/list_employees.html',context)
+        return render(request,'employee/list_employees.html',context)
+    except Exception:
+        context['error']='Error al buscar'
+        return render(request,'employee/list_employees.html',context)
 
 @login_required(login_url='sign_in')
 def create_employee(request):
@@ -75,6 +63,6 @@ def delete_employee(request,id):
             employee.delete()
             return redirect('payroll:list_employees')
 
-        return render(request,'employee/delete.html',{'employee':employee,'title':'Actualizar empleado'})
+        return render(request,'employee/delete.html',{'employee':employee,'title':'Eliminar empleado'})
     except Exception:
-        return render(request,'employee/delete.html',{'employee':employee,'error':'Error al eliminar el empleado','title':'Actualizar empleado'})
+        return render(request,'employee/delete.html',{'employee':employee,'error':'Error al eliminar el empleado','title':'Eliminar empleado'})
