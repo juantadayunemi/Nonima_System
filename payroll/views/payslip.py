@@ -4,7 +4,7 @@ from payroll.forms.payslip import PayslipForm
 from payroll.models import Payslip
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from payroll.views.views import paginator
+from payroll.views.auth import paginator
 from decimal import Decimal
 from django.db.models.functions import Cast
 
