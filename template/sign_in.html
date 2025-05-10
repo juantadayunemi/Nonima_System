@@ -1,0 +1,14 @@
+<!-- Aquí va la pagina de inicio de sign_in, con un enlace o un menu ara registrarse-->
+
+<main>
+    <div></div>
+    <div>
+        {{error}}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">Iniciar Sesión</button>
+            <p>¿No tienes cuenta? <a href="{% url 'sign_up' %}">Regístrate</a></p>
+        </form>
+    </div>
+</main>

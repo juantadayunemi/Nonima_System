@@ -1,0 +1,13 @@
+<!-- Aquí va el formulario de sign_up -->
+
+<main>
+    <div></div>
+    <div>
+        {{error}}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">Registrarse</button>
+        </form>
+    </div>
+</main>
