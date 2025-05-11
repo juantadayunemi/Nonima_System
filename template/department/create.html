@@ -1,7 +1,7 @@
 {% extends 'layout/base_nav.html' %}
 
 {% load static %}
-{% block title %}Agregar Empleado{% endblock %}
+{% block title %}Agregar Departamento{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -94,7 +94,7 @@
         <h1 class="display-5 fw-bold text-primary">
             <i class="fas fa-user-md me-2"></i>{{ title }}
         </h1>
-        <p class="lead text-muted">Registrar cargo</p>
+        <p class="lead text-muted">Registrar Departamento</p>
     </header>
     {{error}}
     <div class="row">
@@ -119,11 +119,11 @@
                         
           
                         <div class="d-flex justify-content-between mt-4 pt-2">
-                            <a href="{% url 'payroll:list_positions' %}" class="btn btn-secondary">
+                            <a href="{% url 'payroll:list_departments' %}" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left me-2"></i>Cancelar
                             </a>
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save me-2"></i>Guardar Cargo
+                                <i class="fas fa-save me-2"></i>Guardar Departamento
                             </button>
                         </div>
                     </form>
@@ -135,8 +135,8 @@
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'payroll:dashboard' %}" class="text-decoration-none">Inicio</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'payroll:list_positions' %}" class="text-decoration-none">Cargos</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Nuevo Cargo</li>
+            <li class="breadcrumb-item"><a href="{% url 'payroll:list_departments' %}" class="text-decoration-none">Departamento</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nuevo Departamento</li>
         </ol>
     </nav>
 </div>

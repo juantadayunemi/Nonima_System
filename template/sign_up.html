@@ -1,13 +1,92 @@
 <!-- Aquí va el formulario de sign_up -->
+{% extends 'layout/base_nav_home.html' %}
+{% load static %}
+{% block title %}Registrarse{% endblock %}
+<!-- Seccion de contenido  -->
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5 mb-5">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2>Crear cuenta</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
 
-<main>
-    <div></div>
-    <div>
-        {{error}}
-        <form action="" method="post">
-            {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit">Registrarse</button>
-        </form>
-    </div>
-</main>
+                        <div class="form-group mb-3">
+                            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                                {{ form.username }}
+                            </div>
+
+                            {% if form.username.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.username.errors %}
+                                <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                                {{ form.email }}
+                            </div>
+                            
+
+                            {% if form.email.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.email.errors %}
+                                <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                                {{ form.password1 }}
+                            </div>
+
+                            {% if form.password1.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.password1.errors %}
+                                <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                                {{ form.password2 }}
+                            </div>
+                            
+
+                            {% if form.password2.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.password2.errors %}
+                                <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center ">
+                    <p>¿Ya tienes una cuenta? <a href="{% url 'sign_in' %}">Iniciar sesión</a></p>
+                </div>
+            </div>
+        </div>
+        {% endblock %}

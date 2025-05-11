@@ -1,11 +1,11 @@
 
 from django import forms
-from payroll.models import  Position
+from payroll.models import  ContractType
 
 
-class PositionForm(forms.ModelForm):
+class ContractTypeForm(forms.ModelForm):
     class Meta:
-        model=Position
+        model=ContractType
         fields='__all__'
         labels={
             'description':'Descripción',

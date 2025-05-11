@@ -1,12 +1,10 @@
-from django.forms import CharField
 from django.shortcuts import get_object_or_404, redirect, render
 from payroll.forms.payslip import PayslipForm
 from payroll.models import Payslip
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from payroll.views.auth import paginator
-from decimal import Decimal
-from django.db.models.functions import Cast
+from payroll.helpers.utilies import paginator
+
 
 @login_required(login_url='sign_in')
 def list_payslip(request):

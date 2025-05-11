@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from payroll.forms.employees import EmployeeForm
 from payroll.models import Employee
 from django.db.models import Q
-from payroll.views.auth import paginator
+from payroll.helpers.utilies import paginator
 # Create your views here.
 
 
