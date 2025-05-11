@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from payroll.forms.employees import EmployeeForm
+from payroll.forms.sign_up import is_valid_dni
 from payroll.models import Employee
 from django.db.models import Q
 from payroll.helpers.utilies import paginator
@@ -29,6 +30,14 @@ def create_employee(request):
         if request.method=='POST':
             form=EmployeeForm(request.POST)
             if form.is_valid():
+                dni = form.cleaned_data.get('dni') 
+                if not is_valid_dni(dni):
+                       return render(request, 'employee/create.html', {
+                            'form': form,
+                            'title': 'Registrar empleado',
+                            'error': 'Cédula ecuatoriana inválida'
+                        })
+
                 form.save()
                 return redirect('payroll:list_employees')
             return render(request,'employee/create.html',{'form':form,'title':'Registrar empleado','error':'Formulario llenado incorrectamente'})
@@ -45,6 +54,14 @@ def update_employee(request,id):
         if request.method=='POST':
             form=EmployeeForm(request.POST,instance=employee)
             if form.is_valid():
+                dni = form.cleaned_data.get('dni') 
+                if not is_valid_dni(dni):
+                       return render(request, 'employee/create.html', {
+                            'form': form,
+                            'title': 'Registrar empleado',
+                            'error': 'Cédula ecuatoriana inválida'
+                        })
+
                 form.save()
                 return redirect('payroll:list_employees')
             return render(request,'employee/create.html',{'form':form,'title':'Actualizar empleado','error':'Formulario llenado incorrectamente'})

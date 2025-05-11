@@ -13,3 +13,6 @@ def paginator(request,objects):
             pages_range.append(i)
 
     return {'registers': registers,'pages_range':pages_range,'current_page':current_page}
+    
+
+    
