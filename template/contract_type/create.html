@@ -119,11 +119,11 @@
                         
           
                         <div class="d-flex justify-content-between mt-4 pt-2">
-                            <a href="{% url 'payroll:list_positions' %}" class="btn btn-secondary">
+                            <a href="{% url 'payroll:list_contract_types' %}" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left me-2"></i>Cancelar
                             </a>
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save me-2"></i>Guardar Cargo
+                                <i class="fas fa-save me-2"></i>Guardar Tipo Contrato
                             </button>
                         </div>
                     </form>
@@ -135,8 +135,8 @@
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'payroll:dashboard' %}" class="text-decoration-none">Inicio</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'payroll:list_positions' %}" class="text-decoration-none">Cargos</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Nuevo Cargo</li>
+            <li class="breadcrumb-item"><a href="{% url 'payroll:list_contract_types' %}" class="text-decoration-none">Tipo de Contratos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nuevo Tipo Contrato</li>
         </ol>
     </nav>
 </div>

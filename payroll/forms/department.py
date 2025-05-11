@@ -1,11 +1,11 @@
 
 from django import forms
-from payroll.models import  Position
+from payroll.models import  Department
 
 
-class PositionForm(forms.ModelForm):
+class DepartmentForm(forms.ModelForm):
     class Meta:
-        model=Position
+        model=Department
         fields='__all__'
         labels={
             'description':'Descripción',

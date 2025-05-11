@@ -1,10 +1,8 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
-from payroll.views.auth import paginator
 from payroll.forms.positions import PositionForm
 from payroll.models import Position
-from django.db.models import Q
+from payroll.helpers.utilies import paginator
 # Create your views here.
 
 
@@ -12,7 +10,7 @@ from django.db.models import Q
 def list_positions(request):
     query=request.GET.get('search',None)
     if query:
-        list_positions=Position.objects.filter(Q(description__icontains=query))
+        list_positions=Position.objects.filter(description__icontains=query)
     else:
         list_positions=Position.objects.all()
 

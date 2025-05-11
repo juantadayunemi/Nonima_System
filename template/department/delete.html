@@ -40,13 +40,13 @@
             {% csrf_token %}
             <div class="d-flex justify-content-center flex-column align-items-center">
                 <div>
-                    <h1 class="fw-bold text-danger text-center message">¿Desea eliminar el Cargo
-                        '{{position.description}}'?</h1>
+                    <h1 class="fw-bold text-danger text-center message">¿Desea eliminar el Departamento
+                        '{{department.description}}'?</h1>
                 </div>
                 <div>
                     <button class="btn btn-danger mx-2 btn-delete" type="submit">Eliminar</button>
                     <a class="btn btn-warning ms-2 btn-cancel"
-                        href="{% url 'payroll:list_positions' %}">Cancelar</a>
+                        href="{% url 'payroll:list_departments' %}">Cancelar</a>
                 </div>
             </div>
 
