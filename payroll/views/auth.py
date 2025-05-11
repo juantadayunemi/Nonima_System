@@ -49,6 +49,8 @@ def sign_out(request):
       
 
 def home(request):
+    if request.user.is_authenticated:
+        return redirect('payroll:dashboard')
     return render(request,'home.html')
 
 @login_required(login_url='sign_in')
