@@ -58,6 +58,13 @@ def update_employee(request,id):
 
         form=EmployeeForm(request.POST,instance=employee)
         if form.is_valid():
+            dni = form.cleaned_data.get('dni') 
+            if not is_valid_dni(dni):
+                return render(request, 'employee/create.html', {
+                            'form': form,
+                            'title': 'Registrar empleado',
+                            'error': 'Cédula ecuatoriana inválida'
+                        })
             form.save()
             return redirect('payroll:list_employees')
         return render(request,'employee/create.html',{'form':form,'title':'Actualizar Empleado','error':'Formulario llenado incorrectamente'})
