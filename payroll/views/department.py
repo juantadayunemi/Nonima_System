@@ -24,16 +24,17 @@ def list_department(request):
 @login_required(login_url='sign_in')
 def create_department(request):
     try:
-        if request.method=='POST':
-            form=DepartmentForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('payroll:list_departments')
-            return render(request,'department/create.html',{'form':form,'title':'Registrar Departamentos',
-                                                         'error':'Formulario llenado incorrectamente'})
-    
-        form=DepartmentForm()
-        return render(request,'department/create.html',{'form':form,'title':'Registrar Departamentos'})
+        if request.method=='GET':
+            form=DepartmentForm()
+            return render(request,'department/create.html',{'form':form,'title':'Registrar Departamentos'})
+
+        form=DepartmentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('payroll:list_departments')
+        return render(request,'department/create.html',{'form':form,'title':'Registrar Departamentos',
+                                                     'error':'Formulario llenado incorrectamente'})
+       
     except Exception as e:
         print(e)
         return render(request,'department/create.html',{'form':form,'title':'Registrar Departamentos',
@@ -44,15 +45,16 @@ def create_department(request):
 def update_department(request,id):
     try: 
         department=get_object_or_404(Department,id=id)
-        if request.method=='POST':
-            form=DepartmentForm(request.POST,instance=department)
-            if form.is_valid():
-                    form.save()
-                    return redirect('payroll:list_departments')
-            return render(request,'department/create.html',{'form':form,'title':'Actualizar Departamentos','error':'Formulario llenado incorrectamente'})
+        if request.method=='GET':
+            form=DepartmentForm(instance=department)
+            return render(request,'department/create.html',{'form':form,'title':'Actualizar Departamentos'})
 
-        form=DepartmentForm(instance=department)
-        return render(request,'department/create.html',{'form':form,'title':'Actualizar Departamentos'})
+        form=DepartmentForm(request.POST,instance=department)
+        if form.is_valid():
+                form.save()
+                return redirect('payroll:list_departments')
+        return render(request,'department/create.html',{'form':form,'title':'Actualizar Departamentos','error':'Formulario llenado incorrectamente'})
+        
     except:
         return render(request,'department/create.html',{'form':form,'title':'Actualizar Departamentos',
                                                      'error':'Error al actualizar departamentos'})
@@ -63,10 +65,12 @@ def update_department(request,id):
 def delete_department(request,id):
     try:
         department=get_object_or_404(Department,id=id)
-        if request.method=='POST':
-            department.delete()
-            return redirect('payroll:list_departments')
+        if request.method=='GET':
+            return render(request,'department/delete.html',{'department':department,'title':'Eliminar Departamento'})
 
-        return render(request,'department/delete.html',{'department':department,'title':'Eliminar Departamento'})
+        department.delete()
+        return redirect('payroll:list_departments')
+
+        
     except Exception:
         return render(request,'department/delete.html',{'department':department,'error':'Error al eliminar departamento','title':'Eliminar Departamento'})

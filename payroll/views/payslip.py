@@ -25,15 +25,16 @@ def list_payslip(request):
 @login_required(login_url='sign_in')
 def create_payslip(request):
     try:
-        if request.method=='POST':
-            form=PayslipForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('payroll:list_payslip')
-            return render(request,'payslip/create.html',{'form':form,'title':'Registrar rol','error':'Formulario llenado incorrectamente'})
-    
-        form=PayslipForm()
-        return render(request,'payslip/create.html',{'form':form,'title':'Registrar rol'})
+        if request.method=='GET':
+            form=PayslipForm()
+            return render(request,'payslip/create.html',{'form':form,'title':'Registrar rol'})
+
+        form=PayslipForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('payroll:list_payslip')
+        return render(request,'payslip/create.html',{'form':form,'title':'Registrar rol','error':'Formulario llenado incorrectamente'})
+
     except Exception as e:
         print(e)
         return render(request,'payslip/create.html',{'form':form,'title':'Registrar rol','error':'Error al guardar el empleado'})
@@ -43,15 +44,16 @@ def create_payslip(request):
 def update_payslip(request,id):
     try: 
         payslip=get_object_or_404(Payslip,id=id)
-        if request.method=='POST':
-            form=PayslipForm(request.POST,instance=payslip)
-            if form.is_valid():
-                    form.save()
-                    return redirect('payroll:list_payslip')
-            return render(request,'payslip/create.html',{'form':form,'title':'Actualizar rol','error':'Formulario llenado incorrectamente'})
+        if request.method=='GET':
+            form=PayslipForm(instance=payslip)
+            return render(request,'payslip/create.html',{'form':form,'title':'Actualizar rol'})
 
-        form=PayslipForm(instance=payslip)
-        return render(request,'payslip/create.html',{'form':form,'title':'Actualizar rol'})
+        form=PayslipForm(request.POST,instance=payslip)
+        if form.is_valid():
+                form.save()
+                return redirect('payroll:list_payslip')
+        return render(request,'payslip/create.html',{'form':form,'title':'Actualizar rol','error':'Formulario llenado incorrectamente'})
+        
     except:
         return render(request,'payslip/create.html',{'form':form,'title':'Actualizar rol','error':'Error al actualizar el empleado'})
 
@@ -61,10 +63,12 @@ def update_payslip(request,id):
 def delete_payslip(request,id):
     try:
         payslip=get_object_or_404(Payslip,id=id)
-        if request.method=='POST':
-            payslip.delete()
-            return redirect('payroll:list_payslip')
+        if request.method=='GET':
+            return render(request,'payslip/delete.html',{'payslip':payslip,'title':'Eliminar rol'})
 
-        return render(request,'payslip/delete.html',{'payslip':payslip,'title':'Eliminar rol'})
+        payslip.delete()
+        return redirect('payroll:list_payslip')
+
+        
     except Exception:
         return render(request,'payslip/delete.html',{'payslip':payslip,'error':'Error al eliminar el rol','title':'Eliminar rol'})

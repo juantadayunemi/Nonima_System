@@ -96,11 +96,16 @@
         </h1>
         <p class="lead text-muted">Registrar cargo</p>
     </header>
-    {{error}}
     <div class="row">
         <div class="col-md-8 mx-auto">
             <div class="card mb-4">
                 <div class="card-body p-4">
+
+                    {% if error|length > 0%}
+                        <div class="alert alert-danger" role="alert">
+                        {{error}}
+                    </div>
+                    {% endif %}
                     <form method="post">
                         {% csrf_token %}
                         <!-- {{ form.as_p }} -->
@@ -119,10 +124,10 @@
                         
           
                         <div class="d-flex justify-content-between mt-4 pt-2">
-                            <a href="{% url 'payroll:list_contract_types' %}" class="btn btn-secondary">
+                            <a href="{% url 'payroll:list_contract_types' %}" class="btn btn-secondary" style="color:white;">
                                 <i class="fas fa-arrow-left me-2"></i>Cancelar
                             </a>
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" style="color:white;">
                                 <i class="fas fa-save me-2"></i>Guardar Tipo Contrato
                             </button>
                         </div>

@@ -26,14 +26,16 @@ def list_employee(request):
 @login_required(login_url='sign_in')
 def create_employee(request):
     try:
-        if request.method=='POST':
-            form=EmployeeForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('payroll:list_employees')
-            return render(request,'employee/create.html',{'form':form,'title':'Registrar empleado','error':'Formulario llenado incorrectamente'})
-        form=EmployeeForm()
-        return render(request,'employee/create.html',{'form':form,'title':'Registrar empleado'})
+        if request.method=='GET':
+            form=EmployeeForm()
+            return render(request,'employee/create.html',{'form':form,'title':'Registrar empleado'})
+
+        form=EmployeeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('payroll:list_employees')
+        return render(request,'employee/create.html',{'form':form,'title':'Registrar empleado','error':'Formulario llenado incorrectamente'})
+    
     except Exception:
         return render(request,'employee/create.html',{'form':form,'title':'Registrar empleado','error':'Error al guardar el empleado'})
     
@@ -42,15 +44,17 @@ def create_employee(request):
 def update_employee(request,id):
     try:
         employee=get_object_or_404(Employee,id=id)
-        if request.method=='POST':
-            form=EmployeeForm(request.POST,instance=employee)
-            if form.is_valid():
-                form.save()
-                return redirect('payroll:list_employees')
-            return render(request,'employee/create.html',{'form':form,'title':'Actualizar empleado','error':'Formulario llenado incorrectamente'})
+        if request.method=='GET':
+            form=EmployeeForm(instance=employee)
+            return render(request,'employee/create.html',{'form':form,'title':'Actualizar empleado'})
+
+        form=EmployeeForm(request.POST,instance=employee)
+        if form.is_valid():
+            form.save()
+            return redirect('payroll:list_employees')
+        return render(request,'employee/create.html',{'form':form,'title':'Actualizar empleado','error':'Formulario llenado incorrectamente'})
+    
         
-        form=EmployeeForm(instance=employee)
-        return render(request,'employee/create.html',{'form':form,'title':'Actualizar empleado'})
     except Exception:
         return render(request,'employee/create.html',{'form':form,'title':'Actualizar empleado','error':'Error al guardar el empleado'})
     
@@ -59,10 +63,12 @@ def update_employee(request,id):
 def delete_employee(request,id):
     try:
         employee=get_object_or_404(Employee,id=id)
-        if request.method=='POST':
-            employee.delete()
-            return redirect('payroll:list_employees')
+        if request.method=='GET':
+            return render(request,'employee/delete.html',{'employee':employee,'title':'Eliminar empleado'})
 
-        return render(request,'employee/delete.html',{'employee':employee,'title':'Eliminar empleado'})
+        employee.delete()
+        return redirect('payroll:list_employees')
+
+        
     except Exception:
         return render(request,'employee/delete.html',{'employee':employee,'error':'Error al eliminar el empleado','title':'Eliminar empleado'})

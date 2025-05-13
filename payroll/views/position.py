@@ -21,14 +21,16 @@ def list_positions(request):
 @login_required(login_url='sign_in')
 def create_position(request):
     try:
-        if request.method=='POST':
-            form=PositionForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('payroll:list_positions')
-            return render(request,'position/create.html',{'form':form,'title':'Registrar posición','error':'Formulario llenado incorrectamente'})
-        form=PositionForm()
-        return render(request,'position/create.html',{'form':form,'title':'Registrar posición'})
+        if request.method=='GET':
+            form=PositionForm()
+            return render(request,'position/create.html',{'form':form,'title':'Registrar posición'})
+
+        form=PositionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('payroll:list_positions')
+        return render(request,'position/create.html',{'form':form,'title':'Registrar posición','error':'Formulario llenado incorrectamente'})
+    
     except Exception:
         return render(request,'employee/create.html',{'form':form,'title':'Registrar empleado','error':'Error al guardar el empleado'})
     
@@ -37,15 +39,16 @@ def create_position(request):
 def update_position(request,id):
     try:
         position=get_object_or_404(Position,id=id)
-        if request.method=='POST':
-            form=PositionForm(request.POST,instance=position)
-            if form.is_valid():
-                form.save()
-                return redirect('payroll:list_positions')
-            return render(request,'position/create.html',{'form':form,'title':'Actualizar posición','error':'Formulario llenado incorrectamente'})
+        if request.method=='GET':
+            form=PositionForm(instance=position)
+            return render(request,'position/create.html',{'form':form,'title':'Actualizar posición'})
 
-        form=PositionForm(instance=position)
-        return render(request,'position/create.html',{'form':form,'title':'Actualizar posición'})
+        form=PositionForm(request.POST,instance=position)
+        if form.is_valid():
+            form.save()
+            return redirect('payroll:list_positions')
+        return render(request,'position/create.html',{'form':form,'title':'Actualizar posición','error':'Formulario llenado incorrectamente'})
+    
     except Exception:
         return render(request,'position/create.html',{'form':form,'title':'Actualizar posición','error':'Error al guardar la posición'})
 
@@ -53,10 +56,12 @@ def update_position(request,id):
 def delete_position(request,id):
     try:
         position=get_object_or_404(Position,id=id)
-        if request.method=='POST':
-            position.delete()
-            return redirect('payroll:list_positions')
+        if request.method=='GET':
+            return render(request,'position/delete.html',{'position':position,'title':'Eliminar cargo'})
 
-        return render(request,'position/delete.html',{'position':position,'title':'Eliminar cargo'})
+        position.delete()
+        return redirect('payroll:list_positions')
+
+        
     except Exception:
         return render(request,'position/delete.html',{'position':position,'error':'Error al eliminar la cargo','title':'Actualizar posición'})

@@ -1,10 +1,9 @@
 from django.shortcuts import  redirect, render
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
-from django.contrib.auth import login,logout
+from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 
-from payroll.forms.sign_in import SignInForm
-from payroll.forms.sign_up import SignUpForm
+
 
 
 # Create your views here.
@@ -12,15 +11,16 @@ from payroll.forms.sign_up import SignUpForm
 
 def sign_up(request):
     try:
-        if request.method=='POST':
-            form=SignUpForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('sign_in')
-            return render(request,'sign_up.html',{'form':form,'error':'Error al crear el usuario'})
-        else:  
-            form=SignUpForm()
+        if request.method=='GET':
+            form=UserCreationForm()
             return render(request,'sign_up.html',{'form':form})
+        else:  
+            form=UserCreationForm(request.POST)
+            if form.is_valid():
+                user=form.save()
+                login(request,user)
+                return redirect('payroll:dashboard')
+            return render(request,'sign_up.html',{'form':form,'error':'Error al crear el usuario'})
     except Exception:
         return render(request,'sign_up.html',{'form':form,'error':'Error al crear el usuario'})
 
@@ -28,16 +28,18 @@ def sign_up(request):
 
 def sign_in(request):
     try:
-        if request.method=='POST':
-            form=SignInForm(request,request.POST)
-            if form.is_valid():
-                user=form.get_user()
-                login(request,user)
-                return redirect('payroll:dashboard')
-            return render(request,'sign_in.html',{'form':form,'error':'Error al Iniciar Sesión'})
+        if request.method=='GET':
+            form=AuthenticationForm()
+            return render(request,'sign_in.html',{'form':form})     
         else:
-            form=SignInForm()
-            return render(request,'sign_in.html',{'form':form})
+            form=AuthenticationForm(request,request.POST)
+            # if form.is_valid():
+            user=authenticate(request,username=request.POST['username'],password=request.POST['password'])
+            if user is None:
+                return render(request,'sign_in.html',{'form':form,'error':'El usuario o contraseña es incorrecta'})
+            login(request,user)
+            return redirect('payroll:dashboard')
+            # return render(request,'sign_in.html',{'form':form,'error':'Error al Iniciar Sesión'})
 
     except Exception:
         return render(request,'sign_in.html',{'form':form,'error':'Error al Iniciar Sesión'})

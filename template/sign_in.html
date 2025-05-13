@@ -13,10 +13,15 @@
                     <h2>Iniciar Sesión</h2>
                 </div>
                 <div class="card-body">
+                    {% if error|length > 0 and form.username.value|length > 0 and  form.password.value|length > 0 %}
+                        <div class="alert alert-danger" role="alert">
+                        {{error}}
+                    </div>
+                    {% endif %}
                     <form method="post" novalidate>
                         {% csrf_token %}
 
-                        <div class="form-group mb-3">
+                        <!-- <div class="form-group mb-3">
                             <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
@@ -46,8 +51,38 @@
                                 {% endfor %}
                             </div>
                             {% endif %}
-                        </div>
+                        </div> -->
                         
+                        <div class="form-group mb-3">
+                            <label for="id_username">Nombre de usuario</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                                <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" class="form-control" required="" id="id_username" value="{{request.POST.username}}">
+                            </div>
+                            {% if form.username.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.username.errors %}
+                                <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="id_password">Contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                                <input type="password" name="password" autocomplete="current-password" class="form-control" required="" id="id_password" value="{{request.POST.password}}">
+                            </div>
+                            {% if form.password.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.password.errors %}
+                                <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
 
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>

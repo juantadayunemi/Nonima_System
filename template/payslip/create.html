@@ -103,7 +103,7 @@
                     {% if error|length > 0 %}
                         <div class="alert alert-danger " role="alert" style="background-color: #f8d7da;color: #721c24;">
                         {{error}}
-                    </div>
+                        </div>
                     {% endif %}
                     <form method="post">
                         {% csrf_token %}
@@ -195,10 +195,10 @@
                         
                         
                         <div class="d-flex justify-content-between mt-4 pt-2">
-                            <a href="{% url 'payroll:list_payslip' %}" class="btn btn-secondary">
+                            <a href="{% url 'payroll:list_payslip' %}" class="btn btn-secondary" style="color:white;">
                                 <i class="fas fa-arrow-left me-2"></i>Cancelar
                             </a>
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" style="color:white;">
                                 <i class="fas fa-save me-2"></i>Guardar Rol
                             </button>
                         </div>
