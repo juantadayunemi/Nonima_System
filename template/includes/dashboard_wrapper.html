@@ -1,62 +1,4 @@
-{% extends 'layout/base_nav.html' %}
 {% load static %}
-{% block title %}NominaSystem-Dashboard{% endblock %}
-
-
-{% block extra_css %}
-<style>
-  .timeline-icon {
-    width: 40px;
-    height: 40px;
-  }
-  .card {
-    transition: all 0.3s ease;
-  }
-  .card:hover {
-    transform: translateY(-5px);
-  }
-  .stats-card {
-    padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    background-color: #fff;
-    transition: all 0.3s ease;
-  }
-  .stats-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  }
-  .stats-icon {
-    font-size: 2rem;
-    color: var(--bs-primary);
-    margin-bottom: 0.5rem;
-  }
-  .stats-number {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-  }
-  .feature-box {
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    background-color: #fff;
-    height: 100%;
-    transition: all 0.3s ease;
-  }
-  .feature-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  }
-  .feature-icon {
-    font-size: 2rem;
-    color: var(--bs-primary);
-    margin-bottom: 1rem;
-  }
-</style>
-{% endblock %}
-
-{% block content %}
 
 <!-- Dashboard Header -->
 <section class="py-4 bg-primary text-white">
@@ -113,17 +55,22 @@
             <h4 class="fw-bold m-0"><i class="fas fa-user-tie text-primary me-2"></i>Cargos</h4>
           </div>
           <div class="card-body">
-            <p>Encontrará una lista completa de cargos con opciones para filtrar, añadir, eliminar y editar. Gestione fácilmente los puestos de trabajo en su organización.</p>
+            <p>Encontrará una lista completa de cargos con opciones para filtrar, añadir, eliminar y editar. Gestione
+              fácilmente los puestos de trabajo en su organización.</p>
             <p>Desde aquí podrá:</p>
             <ul class="list-unstyled">
               <li class="mb-2"><i class="fas fa-search text-primary me-2"></i>Buscar y filtrar cargos</li>
-              <li class="mb-2"><i class="fas fa-plus-circle text-success me-2"></i>Añadir nuevos cargos con su descripción</li>
-              <li class="mb-2"><i class="fas fa-edit text-warning me-2"></i>Modificar información de los cargos existentes</li>
-              <li class="mb-2"><i class="fas fa-trash-alt text-danger me-2"></i>Eliminar cargos que ya no sean necesarios</li>
+              <li class="mb-2"><i class="fas fa-plus-circle text-success me-2"></i>Añadir nuevos cargos con su
+                descripción</li>
+              <li class="mb-2"><i class="fas fa-edit text-warning me-2"></i>Modificar información de los cargos
+                existentes</li>
+              <li class="mb-2"><i class="fas fa-trash-alt text-danger me-2"></i>Eliminar cargos que ya no sean
+                necesarios</li>
             </ul>
           </div>
           <div class="card-footer bg-white text-center py-3">
-            <a href="{% url 'payroll:list_positions' %}" class="btn btn-primary px-4"><i class="fas fa-tasks me-2"></i>Gestionar Cargos</a>
+            <a href="{% url 'payroll:list_positions' %}" class="btn btn-primary px-4"><i
+                class="fas fa-tasks me-2"></i>Gestionar Cargos</a>
           </div>
         </div>
       </div>
@@ -135,17 +82,22 @@
             <h4 class="fw-bold m-0"><i class="fas fa-sitemap text-primary me-2"></i>Departamentos</h4>
           </div>
           <div class="card-body">
-            <p>Encontrará una interfaz intuitiva para organizar la estructura departamental de su empresa con opciones para filtrar, añadir, eliminar y editar departamentos.</p>
+            <p>Encontrará una interfaz intuitiva para organizar la estructura departamental de su empresa con opciones
+              para filtrar, añadir, eliminar y editar departamentos.</p>
             <p>Desde aquí podrá:</p>
             <ul class="list-unstyled">
               <li class="mb-2"><i class="fas fa-search text-primary me-2"></i>Filtrar departamentos por nombre</li>
-              <li class="mb-2"><i class="fas fa-plus-circle text-success me-2"></i>Crear nuevos departamentos con su descripción</li>
-              <li class="mb-2"><i class="fas fa-edit text-warning me-2"></i>Actualizar la información de cada departamento</li>
-              <li class="mb-2"><i class="fas fa-trash-alt text-danger me-2"></i>Eliminar departamentos obsoletos o fusionados</li>
+              <li class="mb-2"><i class="fas fa-plus-circle text-success me-2"></i>Crear nuevos departamentos con su
+                descripción</li>
+              <li class="mb-2"><i class="fas fa-edit text-warning me-2"></i>Actualizar la información de cada
+                departamento</li>
+              <li class="mb-2"><i class="fas fa-trash-alt text-danger me-2"></i>Eliminar departamentos obsoletos o
+                fusionados</li>
             </ul>
           </div>
           <div class="card-footer bg-white text-center py-3">
-            <a href="{% url 'payroll:list_departments' %}" class="btn btn-primary px-4"><i class="fas fa-sitemap me-2"></i>Gestionar Departamentos</a>
+            <a href="{% url 'payroll:list_departments' %}" class="btn btn-primary px-4"><i
+                class="fas fa-sitemap me-2"></i>Gestionar Departamentos</a>
           </div>
         </div>
       </div>
@@ -157,17 +109,21 @@
             <h4 class="fw-bold m-0"><i class="fas fa-file-contract text-primary me-2"></i>Tipos de Contratos</h4>
           </div>
           <div class="card-body">
-            <p>Encontrará un panel de control para gestionar todas las modalidades contractuales de su empresa con opciones para filtrar, añadir, eliminar y editar tipos de contrato.</p>
+            <p>Encontrará un panel de control para gestionar todas las modalidades contractuales de su empresa con
+              opciones para filtrar, añadir, eliminar y editar tipos de contrato.</p>
             <p>Desde aquí podrá:</p>
             <ul class="list-unstyled">
               <li class="mb-2"><i class="fas fa-search text-primary me-2"></i>Buscar y filtrar tipos de contratos </li>
               <li class="mb-2"><i class="fas fa-plus-circle text-success me-2"></i>Crear nuevos tipos de contrato</li>
-              <li class="mb-2"><i class="fas fa-edit text-warning me-2"></i>Modificar información de tipos de contrato</li>
-              <li class="mb-2"><i class="fas fa-trash-alt text-danger me-2"></i>Eliminar tipos de contratos obsoletos</li>
+              <li class="mb-2"><i class="fas fa-edit text-warning me-2"></i>Modificar información de tipos de contrato
+              </li>
+              <li class="mb-2"><i class="fas fa-trash-alt text-danger me-2"></i>Eliminar tipos de contratos obsoletos
+              </li>
             </ul>
           </div>
           <div class="card-footer bg-white text-center py-3">
-            <a href="{% url 'payroll:list_contract_types' %}" class="btn btn-primary px-4"><i class="fas fa-file-signature me-2"></i>Gestionar Tipos de Contratos</a>
+            <a href="{% url 'payroll:list_contract_types' %}" class="btn btn-primary px-4"><i
+                class="fas fa-file-signature me-2"></i>Gestionar Tipos de Contratos</a>
           </div>
         </div>
       </div>
@@ -179,17 +135,23 @@
             <h4 class="fw-bold m-0"><i class="fas fa-id-card text-primary me-2"></i>Empleados</h4>
           </div>
           <div class="card-body">
-            <p>Encontrará un sistema completo para administrar el personal de su empresa con opciones para filtrar, añadir, eliminar y editar información de empleados.</p>
+            <p>Encontrará un sistema completo para administrar el personal de su empresa con opciones para filtrar,
+              añadir, eliminar y editar información de empleados.</p>
             <p>Desde aquí podrá:</p>
             <ul class="list-unstyled">
-              <li class="mb-2"><i class="fas fa-search text-primary me-2"></i>Buscar empleados por nombre, departamento o cargo</li>
-              <li class="mb-2"><i class="fas fa-plus-circle text-success me-2"></i>Registrar nuevos empleados con sus datos completos</li>
-              <li class="mb-2"><i class="fas fa-edit text-warning me-2"></i>Actualizar información personal y laboral</li>
-              <li class="mb-2"><i class="fas fa-trash-alt text-danger me-2"></i>Gestionar bajas y finalizaciones de contrato</li>
+              <li class="mb-2"><i class="fas fa-search text-primary me-2"></i>Buscar empleados por nombre, departamento
+                o cargo</li>
+              <li class="mb-2"><i class="fas fa-plus-circle text-success me-2"></i>Registrar nuevos empleados con sus
+                datos completos</li>
+              <li class="mb-2"><i class="fas fa-edit text-warning me-2"></i>Actualizar información personal y laboral
+              </li>
+              <li class="mb-2"><i class="fas fa-trash-alt text-danger me-2"></i>Gestionar bajas y finalizaciones de
+                contrato</li>
             </ul>
           </div>
           <div class="card-footer bg-white text-center py-3">
-            <a href="{% url 'payroll:list_employees' %}" class="btn btn-primary px-4"><i class="fas fa-users me-2"></i>Gestionar Empleados</a>
+            <a href="{% url 'payroll:list_employees' %}" class="btn btn-primary px-4"><i
+                class="fas fa-users me-2"></i>Gestionar Empleados</a>
           </div>
         </div>
       </div>
@@ -201,34 +163,31 @@
             <h4 class="fw-bold m-0"><i class="fas fa-user-lock text-primary me-2"></i>Roles</h4>
           </div>
           <div class="card-body">
-            <p>Encontrará un panel de control para configurar los niveles de acceso al sistema con opciones para filtrar, añadir, eliminar y editar los roles de usuario.</p>
+            <p>Encontrará un panel de control para configurar los niveles de acceso al sistema con opciones para
+              filtrar, añadir, eliminar y editar los roles de usuario.</p>
             <div class="row mt-4">
               <div class="col-lg-6">
                 <ul class="list-unstyled">
                   <li class="mb-3"><i class="fas fa-search text-primary me-2"></i>Buscar y filtrar roles existentes</li>
-                  <li class="mb-3"><i class="fas fa-plus-circle text-success me-2"></i>Crear nuevos roles con información específica</li>
+                  <li class="mb-3"><i class="fas fa-plus-circle text-success me-2"></i>Crear nuevos roles con
+                    información específica</li>
                 </ul>
               </div>
               <div class="col-lg-6">
                 <ul class="list-unstyled">
                   <li class="mb-3"><i class="fas fa-edit text-warning me-2"></i>Modificar información de cada rol</li>
-                  <li class="mb-3"><i class="fas fa-trash-alt text-danger me-2"></i>Eliminar roles obsoletos o redundantes</li>
+                  <li class="mb-3"><i class="fas fa-trash-alt text-danger me-2"></i>Eliminar roles obsoletos o
+                    redundantes</li>
                 </ul>
               </div>
             </div>
           </div>
           <div class="card-footer bg-white text-center py-3">
-            <a href="{% url 'payroll:list_payslip' %}" class="btn btn-primary px-4"><i class="fas fa-user-lock me-2"></i>Gestionar Roles</a>
+            <a href="{% url 'payroll:list_payslip' %}" class="btn btn-primary px-4"><i
+                class="fas fa-user-lock me-2"></i>Gestionar Roles</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-{% endblock content %}
-
-{% block extra_js %}
-<script src="{% static 'js/bootstrap.min.js' %}"> </script>
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"> </script>
-
-{% endblock %}

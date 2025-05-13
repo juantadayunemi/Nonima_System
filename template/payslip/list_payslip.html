@@ -56,21 +56,23 @@
                     <tbody>
                         {% for item in registers %}
                         <tr>
-                            <th scope="row">{{item.id}}</th>
-                            <td>{{item.employee.name}}</td>
-                            <td>{{item.year_month|date:"Y-m-d" }}</td>
-                            <td>{{item.salary}}</td>
-                            <td>{{item.overtime_hours}}</td>
-                            <td>{{item.bonus}}</td>
-                            <td>{{item.iess}}</td>
-                            <td>{{item.tot_ing}}</td>
-                            <td>{{item.tot_des}}</td>
-                            <td>{{item.neto}}</td>
+                            <th scope="row">{{ item.id }}</th>
+                            <td>{{ item.employee.name }}</td>
+                            <td>{{ item.get_year_month_display }}</td> {# Aquí mostramos Año-Mes #}
+                            <td>{{ item.salary }}</td>
+                            <td>{{ item.overtime_hours }}</td>
+                            <td>{{ item.bonus }}</td>
+                            <td>{{ item.iess }}</td>
+                            <td>{{ item.tot_ing }}</td>
+                            <td>{{ item.tot_des }}</td>
+                            <td>{{ item.neto }}</td>
                             <td class="text-center">
-                                <a href="{% url 'payroll:update_payslip' item.id %}" class="btn btn-sm btn-primary me-1" style="color: white;">
+                                <a href="{% url 'payroll:update_payslip' item.id %}" class="btn btn-sm btn-primary me-1"
+                                    style="color: white;">
                                     <i class="fas fa-edit"></i> Editar
                                 </a>
-                                <a href="{% url 'payroll:delete_payslip' item.id %}" class="btn btn-sm btn-danger" style="color: white; padding: 10px;">
+                                <a href="{% url 'payroll:delete_payslip' item.id %}" class="btn btn-sm btn-danger"
+                                    style="color: white; padding: 10px;">
                                     <i class="fas fa-trash-alt"></i> Eliminar
                                 </a>
                             </td>
@@ -85,6 +87,6 @@
 
     <!-- Paginación -->
     {% include 'layout/paginator.html' %}
-    
+
 </div>
 {% endblock %}

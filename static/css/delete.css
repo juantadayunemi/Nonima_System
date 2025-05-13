@@ -1,0 +1,17 @@
+    .btn-delete {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-cancel {
+        background-color: #ffc107;
+        color: white;
+    }
+
+    .title-principal{
+        color: black;
+    }
+
+    .message{
+        font-size: 25px;
+    }

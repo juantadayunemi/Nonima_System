@@ -23,7 +23,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'payroll:dashboard' %}">Nomina<span class="text-secondary">System</span></a>
+      <a class="navbar-brand" href="{% url 'home' %}">Nomina<span class="text-secondary">System</span></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -31,36 +31,47 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="{% url 'payroll:dashboard' %}">Inicio</a>
+            <a class="nav-link active" href="{% url 'home' %}">Inicio</a>
           </li>
 
+          {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'payroll:list_positions' %}">Cargo</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'payroll:list_departments' %}">Departamentos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'payroll:list_contract_types' %}">Tipo de contrato</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'payroll:list_employees' %}">Empleados</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'payroll:list_payslip' %}">Rol</a>
+              </li>
+            </ul>
 
+          <div class="d-flex align-items-center">
+            <span class="text-dark me-3">
+              <i class="fas fa-user-circle me-1"></i>
+              Hola, {{ user.get_username }}
+            </span>
+            <a href="{% url 'payroll:sign_out' %}" class="btn btn-outline-primary">
+              <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
+            </a>
+          </div>
 
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'payroll:list_positions' %}">Cargo</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'payroll:list_departments' %}">Departamentos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'payroll:list_contract_types' %}">Tipo de contrato</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'payroll:list_employees' %}">Empleados</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'payroll:list_payslip' %}">Rol</a>
-          </li>
-        </ul>
-        <div class="d-flex">
-          <a href="{% url 'payroll:sign_out' %}" class="btn btn-outline-primary me-2">
-            <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
+        {% else %}
+          <a href="{% url 'sign_in' %}" class="btn btn-outline-success">
+            <i class="fas fa-sign-in-alt me-2"></i> Iniciar sesión
           </a>
-        </div>
+        {% endif %}
 
       </div>
     </div>
   </nav>
+
 
   {% block content %}
 

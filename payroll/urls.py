@@ -31,5 +31,7 @@ urlpatterns = [
     path('create/department/', department.create_department, name='create_department'),
     path('update/department/<int:id>/', department.update_department, name='update_department'),
     path('delete/department/<int:id>', department.delete_department, name='delete_department'),
+
+
    
 ]

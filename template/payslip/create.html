@@ -4,89 +4,9 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block extra_css %}
-<style>
-    body {
-        background-color: #f8f9fa;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .navbar {
-        background: white;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        margin-bottom: 15px;
-    }
-    .card {
-        border-radius: 10px;
-        box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    }
-    .btn-primary {
-        background: linear-gradient(135deg, #0d6efd, #0b5ed7);
-        border: none;
-        box-shadow: 0 4px 8px rgba(13, 110, 253, 0.25);
-        transition: all 0.3s;
-    }
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(13, 110, 253, 0.4);
-    }
-    .btn-secondary {
-        background: linear-gradient(135deg, #6c757d, #5c636a);
-        border: none;
-        box-shadow: 0 4px 8px rgba(108, 117, 125, 0.25);
-        transition: all 0.3s;
-    }
-    .btn-secondary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(108, 117, 125, 0.4);
-    }
-    .page-header {
-        position: relative;
-        margin-bottom: 30px;
-        padding-bottom: 15px;
-    }
-    .page-header:after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 60px;
-        height: 3px;
-        background: linear-gradient(135deg, #0d6efd, #0dcaf0);
-    }
-    .form-control, .form-select {
-        border-radius: 8px;
-        padding: 12px 15px;
-        border: 1px solid #ced4da;
-        transition: all 0.3s;
-    }
-    .form-control:focus, .form-select:focus {
-        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-        border-color: #86b7fe;
-    }
-    .form-label {
-        font-weight: 500;
-        margin-bottom: 0.5rem;
-        color: #495057;
-    }
-    .input-group-text {
-        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-        border-radius: 8px 0 0 8px;
-        border: 1px solid #ced4da;
-        border-right: none;
-    }
-    .input-icon {
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #6c757d;
-    }
-</style>
+    <link rel="stylesheet" href="{% static 'css/create.css' %}">
 {% endblock %}
+
 
 {% block content %}
 
@@ -102,59 +22,74 @@
             <div class="card mb-4">
                 <div class="card-body p-4">
                     {% if error|length > 0 %}
-                        <div class="alert alert-danger " role="alert" style="background-color: #f8d7da;color: #721c24;">
+                    <div class="alert alert-danger " role="alert" style="background-color: #f8d7da;color: #721c24;">
                         {{error}}
-                        </div>
+                    </div>
                     {% endif %}
                     <form method="post">
                         {% csrf_token %}
+
                         <div class="mb-4">
-                            <label for="{{ form.name.id_for_label }}" class="form-label">
+                            <label for="id_employee" class="form-label">
                                 <i class="fas fa-user text-primary me-2"></i>{{ form.employee.label }}
                             </label>
                             {{ form.employee }}
-                            <div class="form-text text-muted" id="honorariosHelp">
-                                Seleccione empleado
-                            </div>
+                            <div class="form-text text-muted">Seleccione empleado</div>
                             {% if form.employee.errors %}
-                                <div class="text-danger mt-1">
-                                    {{ form.employee.errors }}
-                                </div>
+                            <div class="text-danger mt-1">{{ form.employee.errors }}</div>
                             {% endif %}
                         </div>
-                        
-                        <!-- Especialidad -->
+
+                        <!-- Recuadro para año y mes -->
                         <div class="mb-4">
-                            <label for="{{ form.year_month.id_for_label }}" class="form-label">
-                                <i class="fas fa-calendar-alt text-primary me-2"></i>{{ form.year_month.label }}
-                            </label>
-                            {{ form.year_month }}
-                            <div class="form-text text-muted" id="honorariosHelp">
-                                Seleccione fecha
-                            </div>
-                            {% if form.year_month.errors %}
-                                <div class="text-danger mt-1">
-                                    {{ form.year_month.errors }}
+                            <div class="border p-3 rounded bg-light">
+                                <h5 class="text-primary mb-2">Periodo a pagar</h5>
+                                <div class="row">
+                                    <!-- Campo Año -->
+                                    <div class="col-md-6">
+                                        <label for="{{ form.year.id_for_label }}" class="form-label">
+                                            <i class="fas fa-calendar-alt text-primary me-2"></i>{{ form.year.label }}
+                                        </label>
+                                        {{ form.year }}
+                                        <div class="form-text text-muted" id="yearHelp">
+                                            Seleccione el año
+                                        </div>
+                                        {% if form.year.errors %}
+                                        <div class="text-danger mt-1">
+                                            {{ form.year.errors }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+
+                                    <!-- Campo Mes -->
+                                    <div class="col-md-6">
+                                        <label for="{{ form.month.id_for_label }}" class="form-label">
+                                            <i class="fas fa-clock text-primary me-2"></i>{{ form.month.label }}
+                                        </label>
+                                        {{ form.month }}
+                                        <div class="form-text text-muted" id="monthHelp">
+                                            Seleccione el mes
+                                        </div>
+                                        {% if form.month.errors %}
+                                        <div class="text-danger mt-1">
+                                            {{ form.month.errors }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
                                 </div>
-                            {% endif %}
+                            </div>
                         </div>
-                        
+
+
                         <!-- Honorarios -->
                         <div class="mb-4">
-                            <label for="{{ form.salary.id_for_label }}" class="form-label">
+                            <label for="id_salary" class="form-label">
                                 <i class="fas fa-money-bill-wave text-primary me-2"></i>{{ form.salary.label }}
                             </label>
-                            <div class="input-group">
-                                <span class="input-group-text">$</span>
-                                {{ form.salary }}
-                            </div>
-                            <div class="form-text text-muted" id="emailHelp">
-                                Ingrese el monto sin el signo de dólar. Ejemplo: 120.00
-                            </div>
+                            {{ form.salary }}
+                            <div class="form-text text-muted">Este campo se llena automáticamente.</div>
                             {% if form.salary.errors %}
-                            <div class="text-danger mt-1">
-                                {{ form.salary.errors }}
-                            </div>
+                            <div class="text-danger mt-1">{{ form.salary.errors }}</div>
                             {% endif %}
                         </div>
 
@@ -193,8 +128,8 @@
                             </div>
                             {% endif %}
                         </div>
-                        
-                        
+
+
                         <div class="d-flex justify-content-between mt-4 pt-2">
                             <a href="{% url 'payroll:list_payslip' %}" class="btn btn-secondary" style="color:white;">
                                 <i class="fas fa-arrow-left me-2"></i>Cancelar
@@ -211,11 +146,19 @@
 
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'payroll:dashboard' %}" class="text-decoration-none">Inicio</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'payroll:list_payslip' %}" class="text-decoration-none">Roles</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'payroll:dashboard' %}" class="text-decoration-none">Inicio</a>
+            </li>
+            <li class="breadcrumb-item"><a href="{% url 'payroll:list_payslip' %}"
+                    class="text-decoration-none">Roles</a></li>
             <li class="breadcrumb-item active" aria-current="page">Nuevo Rol</li>
         </ol>
     </nav>
 </div>
-      
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+    <script src="{% static 'js/get_employee.js' %}"></script>
 {% endblock %}

@@ -20,12 +20,13 @@ from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
 
-from payroll.views import auth
+from payroll.views import auth, employees
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("",auth.home,name='home'),
     path("sign_in",auth.sign_in,name='sign_in'),
     path("sign/up/",auth.sign_up,name='sign_up'),
-    path("payroll/",include('payroll.urls',namespace='payroll'))
+    path("payroll/",include('payroll.urls',namespace='payroll')),
+    path('api/employee/<int:employee_id>/', employees.get_employee_data, name='get_employee_data'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

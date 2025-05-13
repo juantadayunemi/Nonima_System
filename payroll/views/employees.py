@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from payroll.forms.employees import EmployeeForm
@@ -86,3 +87,15 @@ def delete_employee(request,id):
 
     except Exception:
         return render(request,'employee/delete.html',{'employee':employee,'error':'Error al eliminar el empleado','title':'Eliminar empleado'})
+    
+
+
+def get_employee_data(request, employee_id):
+    try:
+        employee = Employee.objects.get(pk=employee_id)
+        return JsonResponse({
+            'salary': str(employee.salary),
+            'name': employee.name,
+        })
+    except Employee.DoesNotExist:
+        return JsonResponse({'error': 'Empleado no encontrado'}, status=404)

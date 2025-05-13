@@ -47,10 +47,11 @@ class Employee(models.Model):
 
 class Payslip(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    year_month = models.DateField()#202501
+    year_month = models.IntegerField()#202501
     salary = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)])
     overtime_hours = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)])
     bonus = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)])
+    
     #calculado
     iess = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)])
     tot_ing = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)])
@@ -69,6 +70,11 @@ class Payslip(models.Model):
     def calculate_neto(self):
         self.neto=self.tot_ing-self.tot_des
 
+    def get_year_month_display(self):
+        year = self.year_month // 100
+        month = self.year_month % 100
+        return f"{year}-{month:02d}"
+
     def save(self,*args,**kgars):
         self.calculate_tot_ing()
         self.calculate_iess()
@@ -76,3 +82,5 @@ class Payslip(models.Model):
         self.calculate_neto()
 
         super().save(*args,**kgars) #guardar en la base de datos con los campos calculados
+
+

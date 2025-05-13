@@ -56,20 +56,22 @@
       border-color: var(--primary-color);
     }
     
-    .btn-outline-primary {
-      border-color: var(--primary-color);
-      color: var(--primary-color);
-      padding: 10px 25px;
-      border-radius: 50px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-    
-    .btn-outline-primary:hover {
-      background-color: var(--primary-color);
-      color: white;
-    }
-    
+  .btn-outline-transparent {
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.4); /* Borde blanco semi-transparente */
+  color: white;
+  padding: 10px 25px;
+  border-radius: 50px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-transparent:hover {
+  background-color: transparent;
+  border-color: white;
+  color: white;
+  transform: translateY(-2px);
+}
     .hero {
       background: linear-gradient(135deg, rgba(44, 110, 205, 0.05) 0%, rgba(25, 179, 179, 0.05) 100%);
       padding: 100px 0;
@@ -300,6 +302,24 @@
       font-size: 0.9rem;
     }
     
+
+.btn-block {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 50px;
+  text-align: center;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  color: #eef0f3; /* Texto blanco */
+}
+
+.btn-block:hover {
+  color: #033a8b; /* Texto azul oscuro */
+  border-color: #212529 !important; /* Borde negro */
+  border-width: 2px !important; /* Grosor del borde */
+}
+
     /* Responsive */
     @media (max-width: 991.98px) {
       .hero h1 {

@@ -2,26 +2,7 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block extra_css %}
-<style>
-    .btn-delete {
-        background-color: #dc3545;
-        color: white;
-    }
-
-    .btn-cancel {
-        background-color: #ffc107;
-        color: white;
-    }
-
-    .title-principal{
-        color: black;
-    }
-
-    .message{
-        font-size: 25px;
-    }
-
-</style>
+    <link rel="stylesheet" href="{% static 'css/delete.css' %}">
 {% endblock %}
 
 {% block content %}
