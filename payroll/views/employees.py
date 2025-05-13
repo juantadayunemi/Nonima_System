@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from payroll.forms.employees import EmployeeForm
 from payroll.models import Employee
 from django.db.models import Q
-from payroll.helpers.utilies import paginator
+from payroll.helpers.utilies import is_valid_dni, paginator
 # Create your views here.
 
 
@@ -25,19 +25,26 @@ def list_employee(request):
 
 @login_required(login_url='sign_in')
 def create_employee(request):
-    try:
+    try:   
         if request.method=='GET':
             form=EmployeeForm()
-            return render(request,'employee/create.html',{'form':form,'title':'Registrar empleado'})
+            return render(request,'employee/create.html',{'form':form,'title':'Registrar Empleado'})
 
         form=EmployeeForm(request.POST)
         if form.is_valid():
+            dni = form.cleaned_data.get('dni') 
+            if not is_valid_dni(dni):
+                return render(request, 'employee/create.html', {
+                            'form': form,
+                            'title': 'Registrar empleado',
+                            'error': 'Cédula ecuatoriana inválida'
+                        })
             form.save()
             return redirect('payroll:list_employees')
-        return render(request,'employee/create.html',{'form':form,'title':'Registrar empleado','error':'Formulario llenado incorrectamente'})
-    
+        return render(request,'employee/create.html',{'form':form,'title':'Registrar Empleado','error':'Formulario llenado incorrectamente'})
+        
     except Exception:
-        return render(request,'employee/create.html',{'form':form,'title':'Registrar empleado','error':'Error al guardar el empleado'})
+        return render(request,'employee/create.html',{'form':form,'title':'Registrar Empleado','error':'Error al guardar el empleado'})
     
 
 @login_required(login_url='sign_in')
@@ -46,17 +53,18 @@ def update_employee(request,id):
         employee=get_object_or_404(Employee,id=id)
         if request.method=='GET':
             form=EmployeeForm(instance=employee)
-            return render(request,'employee/create.html',{'form':form,'title':'Actualizar empleado'})
+            return render(request,'employee/create.html',{'form':form,'title':'Actualizar Empleado'})
+
 
         form=EmployeeForm(request.POST,instance=employee)
         if form.is_valid():
             form.save()
             return redirect('payroll:list_employees')
-        return render(request,'employee/create.html',{'form':form,'title':'Actualizar empleado','error':'Formulario llenado incorrectamente'})
+        return render(request,'employee/create.html',{'form':form,'title':'Actualizar Empleado','error':'Formulario llenado incorrectamente'})
     
         
     except Exception:
-        return render(request,'employee/create.html',{'form':form,'title':'Actualizar empleado','error':'Error al guardar el empleado'})
+        return render(request,'employee/create.html',{'form':form,'title':'Actualizar Empleado','error':'Error al guardar el empleado'})
     
 
 @login_required(login_url='sign_in')
@@ -69,6 +77,5 @@ def delete_employee(request,id):
         employee.delete()
         return redirect('payroll:list_employees')
 
-        
     except Exception:
         return render(request,'employee/delete.html',{'employee':employee,'error':'Error al eliminar el empleado','title':'Eliminar empleado'})

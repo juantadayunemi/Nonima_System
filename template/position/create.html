@@ -1,7 +1,7 @@
 {% extends 'layout/base_nav.html' %}
 
 {% load static %}
-{% block title %}Agregar Empleado{% endblock %}
+{% block title %}{{title}}{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -94,7 +94,7 @@
         <h1 class="display-5 fw-bold text-primary">
             <i class="fas fa-user-md me-2"></i>{{ title }}
         </h1>
-        <p class="lead text-muted">Registrar cargo</p>
+        <p class="lead text-muted">{{title}}</p>
     </header>
     <div class="row">
         <div class="col-md-8 mx-auto">
