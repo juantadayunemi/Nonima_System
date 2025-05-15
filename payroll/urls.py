@@ -1,5 +1,5 @@
 from django.urls import path
-from payroll.views import auth, contract_type, department,employees,payslip, permiso,position
+from payroll.views import asistencia, auth, contract_type, department,employees,payslip, permiso,position
 
 
 app_name='payroll'
@@ -36,5 +36,10 @@ urlpatterns = [
     path('create/permiso/', permiso.create_permiso, name='create_permiso'),
     path('update/permiso/<int:id>/', permiso.update_permiso, name='update_permiso'),
     path('delete/permiso/<int:id>', permiso.delete_permiso, name='delete_permiso'),
+
+    path('list/asistencia/', asistencia.list_asistencia, name='list_asistencia'),
+    path('create/asistencia/', asistencia.create_asistencia, name='create_asistencia'),
+    path('update/asistencia/<int:id>/', asistencia.update_asistencia, name='update_asistencia'),
+    path('delete/asistencia/<int:id>', asistencia.delete_asistencia, name='delete_asistencia'),
 
 ]

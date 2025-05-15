@@ -513,3 +513,22 @@
     background-color: #237238;
 }
 
+
+/* Estilo para el botón personalizado */
+.btn.btn-primary {
+    color: white !important;
+    background-color: #3ea159 !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    border-radius: 30px !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s !important;
+    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3) !important;
+    margin-bottom: 0 !important;
+}
+
+/* Efecto hover */
+.btn.btn-primary:hover {
+    background-color: #2e7d48 !important;
+}

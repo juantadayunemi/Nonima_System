@@ -1,0 +1,77 @@
+{% extends 'layout/base_nav.html' %}
+{% load static %}
+{% block title %}Directorio de Roles{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'css/tablestyle.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <header class="page-header">
+        <h1 class="display-5 fw-bold text-primary">
+            <i class="fas fa-user-shield"></i>Listado de Asistencias
+        </h1>
+        <p class="lead text-muted">Listado de Roles</p>
+    </header>
+
+    <!-- Filtros -->
+    <form method="get" class="search-bar">
+        <input type="date" name="fecha" class="form-control">
+        <select name="estado" class="form-control">
+            <option value="">Todos los estados</option>
+            <option value="P">Presente</option>
+            <option value="A">Ausente</option>
+            <!-- ... -->
+        </select>
+        <button class="btn btn-primary">Buscar</button>
+    </form>
+
+    <!-- Botón para nuevo registro -->
+    <div class="d-flex justify-content-end mb-4">
+        <a class="btn btn-success" href="{% url 'payroll:create_asistencia' %}" style="color: white;">
+            <i class="fas fa-plus me-2"></i>Nueva asistencia
+        </a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Empleado</th>
+                <th>Fecha</th>
+                <th>Hora Entrada</th>
+                <th>Hora Salida</th>
+                <th>Horas Trabajadas</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+    <tbody>
+    {% for item in registers %}  <!-- Cambiado de 'a' a 'item' para consistencia -->
+    <tr>
+        <td>{{ item.employee.name }}</td>
+        <td>{{ item.fecha|date:"d/m/Y" }}</td>
+        <td>{{ item.hora_entrada|time:"H:i" }}</td>
+        <td>{{ item.hora_salida|time:"H:i" }}</td>
+        <td>{{ item.horas_trabajadas }}</td>
+        <td>{{ item.get_estado_display }}</td>
+        <td class="text-center">
+            <a href="{% url 'payroll:update_asistencia' item.id %}" class="btn btn-sm btn-primary me-1"
+                style="color: white;">
+                <i class="fas fa-edit"></i> Editar
+            </a>
+            <a href="{% url 'payroll:delete_asistencia' item.id %}" class="btn btn-sm btn-danger  me-1"
+                style="color: white;">
+                <i class="fas fa-trash-alt"></i> Eliminar
+            </a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="7" class="text-center">No hay registros de asistencia</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock %}

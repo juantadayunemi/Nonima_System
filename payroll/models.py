@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from decimal import Decimal
 from django.core.validators import MinValueValidator
@@ -125,3 +126,31 @@ class Permiso(models.Model):
     def __str__(self):
 
         return f"Permiso de {self.employee.name} - {self.tipo_permiso.descripcion}"
+
+# payroll/models.py
+class Asistencia(models.Model):
+    ESTADO_CHOICES = (
+        ('P', 'Presente'),
+        ('A', 'Ausente'),
+        ('T', 'Tardanza'),
+        ('V', 'Vacaciones'),
+    )
+    
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    fecha = models.DateField()
+    hora_entrada = models.TimeField(null=True, blank=True)
+    hora_salida = models.TimeField(null=True, blank=True)
+    estado = models.CharField(max_length=1, choices=ESTADO_CHOICES, default='P')
+    observaciones = models.TextField(blank=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.employee} - {self.fecha}"
+
+    @property
+    def horas_trabajadas(self):
+        if self.hora_entrada and self.hora_salida:
+            entrada = datetime.datetime.combine(self.fecha, self.hora_entrada)
+            salida = datetime.datetime.combine(self.fecha, self.hora_salida)
+            return salida - entrada
+        return datetime.timedelta(0)
