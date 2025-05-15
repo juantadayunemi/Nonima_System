@@ -1,0 +1,102 @@
+{% extends 'layout/base_nav.html' %}
+{% load static %}
+{% block title %}Directorio de Roles{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'css/tablestyle.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+
+<!-- Contenido principal -->
+<div class="container">
+    <header class="page-header">
+        <h1 class="display-5 fw-bold text-primary">
+            <i class="fas fa-user-shield"></i>Directorio de permisos
+        </h1>
+        <p class="lead text-muted">Listado de Roles</p>
+    </header>
+
+    <form method="get" class="search-bar">
+        <input type="text" name="search" placeholder="Buscar..." class="search-input" value="{{ request.GET.search }}">
+        
+        <input type="date" name="start_date" class="date-input" value="{{ request.GET.start_date }}">
+        <input type="date" name="end_date" class="date-input" value="{{ request.GET.end_date }}">
+
+        <select name="tipo_permiso" class="select-filter">
+            <option value="">Todos los tipos</option>
+            {% for tipo in tipo_permisos %}
+                <option value="{{ tipo.id }}" {% if tipo.id|stringformat:"s" == request.GET.tipo_permiso %}selected{% endif %}>
+                    {{ tipo.descripcion }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="status_filter" class="select-filter">
+            <option value="">Todas</option>
+            <option value="active" {% if request.GET.status_filter == "active" %}selected{% endif %}>Solo Activas</option>
+            <option value="inactive" {% if request.GET.status_filter == "inactive" %}selected{% endif %}>Solo Anuladas</option>
+        </select>
+
+        <button type="submit" class="search-button">Buscar</button>
+    </form>
+
+
+    <!-- Botón para nuevo registro -->
+    <div class="d-flex justify-content-end mb-4">
+        <a class="btn btn-success" href="{% url 'payroll:create_permiso' %}" style="color: white;">
+            <i class="fas fa-plus me-2"></i>Nuevo permiso
+        </a>
+    </div>
+
+    <!-- Tabla de permisos -->
+
+    <div class="card mb-4">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Empleado</th>
+                            <th scope="col">Tipo Permiso</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Tiempo permiso</th>
+                            <th scope="col">Activo?</th>
+           
+                            <th scope="col" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in registers %}
+                        <tr>
+                            <th scope="row">{{ item.id }}</th>
+                            <td>{{ item.employee.name }}</td>
+                            <td>{{ item.tipo_permiso.descripcion }}</td>
+                            <td>{{ item.fecha_permiso|date:"d/m/Y" }}</td>
+                            <td>{{ item.get_value_permiso }}</td>
+                            <td>{{ item.is_active|yesno:"Sí,No"|capfirst }}</td>
+                            
+                            <td class="text-center">
+                                <a href="{% url 'payroll:update_permiso' item.id %}" class="btn btn-sm btn-primary me-1"
+                                    style="color: white;">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <a href="{% url 'payroll:delete_permiso' item.id %}" class="btn btn-sm btn-danger"
+                                    style="color: white; padding: 10px;">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginación -->
+    {% include 'layout/paginator.html' %}
+
+</div>
+{% endblock %} 

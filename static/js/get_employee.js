@@ -1,7 +1,11 @@
     const API_URL = '/api/employee/';
+    const API_URL_PERMISO = '/api/permiso/';
     document.addEventListener('DOMContentLoaded', function () {
         const employeeSelect = document.getElementById('id_employee');
         const salaryInput = document.getElementById('id_salary');
+
+        const permisoSelect = document.getElementById('id_permiso');
+        const frecuanciaInput = document.getElementById('id_frecuencia_dias');
 
         if (employeeSelect && salaryInput) {
             employeeSelect.addEventListener('change', function () {
@@ -27,14 +31,8 @@
                 }
             });
 
-            // Cargar salario inicial si ya hay un empleado seleccionado (en edición)
-            const selectedEmployee = employeeSelect.value;
-            if (selectedEmployee) {
-                fetch(`${API_URL}${selectedEmployee}/`)
-                    .then(response => response.json())
-                    .then(data => {
-                        salaryInput.value = data.salary;
-                    });
-            }
         }
+
+
+
     });

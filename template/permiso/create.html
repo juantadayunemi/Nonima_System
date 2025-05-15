@@ -1,0 +1,150 @@
+{% extends 'layout/base_nav.html' %}
+
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/create.css' %}">
+
+<!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <header class="page-header">
+        <h1 class="display-5 fw-bold text-primary">
+            <i class="fas fa-user-md me-2"></i>{{ title }}
+        </h1>
+        <p class="lead text-muted">{{title}}</p>
+    </header>
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card mb-4">
+                <div class="card-body p-4">
+                    {% if error|length > 0 %}
+                    <div class="alert alert-danger " role="alert" style="background-color: #f8d7da;color: #721c24;">
+                        {{error}}
+                    </div>
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <!-- fecha de permiso -->
+                        <div class="mb-4">
+                            <label for="fecha_permiso" class="form-label">
+                                <i class="fas fa-calendar-alt text-primary me-2"></i>Fecha de Permiso
+                            </label>
+                            <div class="input-group">
+                                {{ form.fecha_permiso }}
+                                <span class="input-group-text">
+                                    <i class="fas fa-calendar-day"></i>
+                                </span>
+                            </div>
+                            <div class="form-text text-muted">Seleccione la fecha del permiso</div>
+                            {% if form.fecha_permiso.errors %}
+                            <div class="text-danger mt-1">{{ form.fecha_permiso.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="id_employee" class="form-label">
+                                <i class="fas fa-user text-primary me-2"></i>{{ form.employee.label }}
+                            </label>
+                            {{ form.employee }}
+                            <div class="form-text text-muted">Seleccione empleado</div>
+                            {% if form.employee.errors %}
+                            <div class="text-danger mt-1">{{ form.employee.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="id_permiso" class="form-label">
+                                <i class="fas fa-user text-primary me-2"></i>{{ form.tipo_permiso.label }}
+                            </label>
+                            {{ form.tipo_permiso }}
+                            <div class="form-text text-muted">Seleccione tipo de permiso</div>
+                            {% if form.tipo_permiso.errors %}
+                            <div class="text-danger mt-1">{{ form.tipo_permiso.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Después del campo tipo_permiso, añade estos campos -->
+                        <div class="mb-4" id="dias-field" style="display: none;">
+                            <label for="id_dias" class="form-label">
+                                <i class="fas fa-calendar-day text-primary me-2"></i>{{ form.dias.label }}
+                            </label>
+                            {{ form.dias }}
+                            <div class="form-text text-muted">Ingrese el número de días</div>
+                            {% if form.dias.errors %}
+                            <div class="text-danger mt-1">{{ form.dias.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-4" id="horas-field" style="display: none;">
+                            <label for="id_horas" class="form-label">
+                                <i class="fas fa-clock text-primary me-2"></i>{{ form.horas.label }}
+                            </label>
+                            {{ form.horas }}
+                            <div class="form-text text-muted">Ingrese el número de horas</div>
+                            {% if form.horas.errors %}
+                            <div class="text-danger mt-1">{{ form.horas.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            {{ form.is_active }}
+                            <label class="form-check-label" for="{{ form.is_active.id_for_label }}">
+                                {{ form.is_active.label }}
+                            </label>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4 pt-2">
+                            <a href="{% url 'payroll:list_payslip' %}" class="btn btn-secondary" style="color:white;">
+                                <i class="fas fa-arrow-left me-2"></i>Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-primary" style="color:white;">
+                                <i class="fas fa-save me-2"></i>Guardar Rol
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'payroll:dashboard' %}" class="text-decoration-none">Inicio</a>
+            </li>
+            <li class="breadcrumb-item"><a href="{% url 'payroll:list_payslip' %}"
+                    class="text-decoration-none">Roles</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nuevo Rol</li>
+        </ol>
+    </nav>
+</div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="{% static 'js/get_type_permiso.js' %}"></script>
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- Español -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+            flatpickr("#fecha_permiso", {
+                dateFormat: "d/m/Y",
+                locale: "es",
+                allowInput: true
+            });
+        });
+</script>
+{% endblock %}

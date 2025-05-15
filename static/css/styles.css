@@ -427,3 +427,89 @@
     color: #eff1f5;
     box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3);
 }
+
+/* Para una transición suave al mostrar/ocultar */
+#dias-field, #horas-field {
+    transition: all 0.3s ease;
+}
+
+/* Estilo para los campos cuando son visibles */
+.field-visible {
+    display: block !important;
+}
+/* Estilo para el datepicker */
+.datepicker {
+    z-index: 9999 !important;
+}
+
+.datepicker-dropdown:after {
+    border-bottom-color: #007bff;
+}
+
+.datepicker table tr td.active.active {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.datepicker table tr td.today {
+    background-color: #e9ecef;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    background-color: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    flex-wrap: wrap;
+}
+
+.search-input,
+.date-input,
+.select-filter {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.search-input:focus,
+.date-input:focus,
+.select-filter:focus {
+    border-color: #4285f4;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.date-input {
+    width: 140px;
+}
+
+.select-filter {
+    width: 160px;
+}
+
+.search-button {
+    background-color: #4b9e61 !important;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #237238;
+}
+

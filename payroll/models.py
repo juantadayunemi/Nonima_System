@@ -2,6 +2,7 @@ from django.db import models
 from decimal import Decimal
 from django.core.validators import MinValueValidator
 
+
 # Create your models here.
 class Position(models.Model):
     description = models.CharField(max_length=100)
@@ -81,6 +82,46 @@ class Payslip(models.Model):
         self.tot_des=self.iess
         self.calculate_neto()
 
-        super().save(*args,**kgars) #guardar en la base de datos con los campos calculados
+        super().save(*args,**kgars) 
 
 
+class TipoPermiso(models.Model):
+
+    descripcion = models.CharField(max_length=100)
+
+    frecuencia_dias = models.BooleanField(default=True)
+
+   
+    def __str__(self):
+
+        return self.descripcion
+
+ 
+
+class Permiso(models.Model):
+
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    
+    tipo_permiso = models.ForeignKey(TipoPermiso, on_delete=models.CASCADE)
+
+    fecha_permiso = models.DateField()
+
+
+    dias = models.PositiveIntegerField(null=True,blank=True)
+
+    horas = models.PositiveIntegerField(null=True,blank=True)
+
+    is_active = models.BooleanField(default=True)
+
+    @property
+    def get_value_permiso(self):
+        if self.tipo_permiso.frecuencia_dias:
+            return str( self.dias) + ' dias'
+        else:
+            return str(  self.horas) + ' horas'
+        
+
+
+    def __str__(self):
+
+        return f"Permiso de {self.employee.name} - {self.tipo_permiso.descripcion}"

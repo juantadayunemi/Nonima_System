@@ -29,6 +29,19 @@
                     <form method="post">
                         {% csrf_token %}
 
+                        <!-- Recuadro para año y mes  tipo_permiso  -->
+                        <div class="mb-4">
+                            <label for="id_tipo_permiso" class="form-label">
+                                <i class="text-primary me-2"></i>{{ form.tipo_permiso.label }}
+                            </label>
+                            {{ form.tipo_permiso }}
+                            <div class="form-text text-muted">Seleccione tipo de permiso</div>
+                            {% if form.tipo_permiso.errors %}
+                            <div class="text-danger mt-1">{{ form.tipo_permiso.errors }}</div>
+                            {% endif %}
+                        </div>
+
+
                         <div class="mb-4">
                             <label for="id_employee" class="form-label">
                                 <i class="fas fa-user text-primary me-2"></i>{{ form.employee.label }}
@@ -39,6 +52,7 @@
                             <div class="text-danger mt-1">{{ form.employee.errors }}</div>
                             {% endif %}
                         </div>
+
 
                         <!-- Recuadro para año y mes -->
                         <div class="mb-4">
